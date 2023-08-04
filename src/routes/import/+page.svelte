@@ -36,11 +36,14 @@
         INSERT INTO categories (name) VALUES (${categories[i]})
       `;
     }*/
-    const cats = await sql`SELECT * FROM categories;`;
-    console.log("success")
+    
+    let data = {ok: "cool"};
+    let result = await fetch("/api/categories/list", {method: "POST", body: JSON.stringify(data)});
+    let response = await result.json();
+    console.log(response)
+    //console.log("success")
   }
 </script>
 
-{process.env.POSTGRES_URL}
 <Button caption="Import categories" on:click={importCategories} />
 
