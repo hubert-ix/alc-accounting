@@ -1,4 +1,6 @@
 <script>
+  import { createEventDispatcher } from 'svelte';
+  import { slide } from 'svelte/transition';
   import { createForm } from "svelte-forms-lib";
   import dayjs from "dayjs";
   import FormItem from "$lib/FormItem.svelte";
@@ -6,49 +8,81 @@
   import TextInput from "$lib/TextInput.svelte";
   import SelectInput from "$lib/SelectInput.svelte";
 
+  export let categories;
+  export let saving;
+
+  let dispatch = createEventDispatcher();
   let today = dayjs().format("YYYY-MM-DD");
-  let categories = [
-    {value: 0, label: "- Select -"},
-    {value: 1, label: "ok"},
-    {value: 2, label: "fantastic"},
+  let categoryOptions = [
+    {value: 0, label: "- Select -"}
   ];
+  let typeOptions = [
+    {value: "expense", label: "Expense"},
+    {value: "income", label: "Income"}
+  ];
+
+  for (let i in categories) {
+    categoryOptions.push({value: categories[i].id, label: categories[i].name});
+  }
 
   // set up the form
   const { form, errors, state, handleChange, handleSubmit } = createForm({
     initialValues: {
+      type: "expense",
       date: today,
       company: "",
       description: "",
       amount: "",
       hst: "",
       tip: "",
-      category: "",
+      category: 0,
     },
     validate: values => {
       let errs = {};
       if (values.company == "") {
-        errs.company = "One needs a company";
+        errs.company = "Please enter a company";
       }
       if (values.description == "") {
-        errs.description = "A good description is like a good mole";
+        errs.description = "Please enter a description";
       }
       if (values.amount == "") {
-        errs.amount = "Nothing amounts to nothing";
+        errs.amount = "Please enter an amount";
       }
       if (values.category == 0) {
-        errs.amount = "Categories are awesome";
+        errs.category = "Please select a category";
+      }
+      if (values.hst == "") {
+        values.hst = 0;
+      }
+      if (values.tip == "") {
+        values.tip = 0;
       }
       return errs;
     },
     onSubmit: async values => {
-      console.log(values);
+      dispatch("saved", {values});
     }
   });
+
+  $: if (saving == false) {
+    $form.type = "expense";
+    $form.date = today;
+    $form.company = "";
+    $form.description = "";
+    $form.amount = "";
+    $form.hst = "";
+    $form.tip = "";
+    $form.category = 0;
+  }
 </script>
 
 
-<div class="input-form">
+<div class="input-form" transition:slide>
   <form on:submit={handleSubmit}>
+
+    <FormItem label="Type" errorMessage={$errors.type}>
+      <SelectInput options={typeOptions} bind:value={$form.type} />
+    </FormItem>
 
     <FormItem label="Date" errorMessage={$errors.date}>
       <TextInput name="date" type="date" bind:value={$form.date} />
@@ -75,11 +109,11 @@
     </FormItem>
 
     <FormItem label="Category" errorMessage={$errors.category}>
-      <SelectInput options={categories} bind:value={$form.category} />
+      <SelectInput options={categoryOptions} bind:value={$form.category} />
     </FormItem>
 
     <div class="button">
-      <Button caption="Save" />
+      <Button caption="Save" loading={saving} />
     </div>
 
   </form>

@@ -25,25 +25,23 @@
       'Internet',
       'Donation',
       'Coaching and courses',
+      'Something',
       'Books',
       'Landline',
       'Hydro',
       'Gifts'
     ];
-    /*
     for (let i in categories) {
-      await sql`
-        INSERT INTO categories (name) VALUES (${categories[i]})
-      `;
-    }*/
-    
-    let data = {ok: "cool"};
-    let result = await fetch("/api/categories/list", {method: "POST", body: JSON.stringify(data)});
-    let response = await result.json();
-    console.log(response)
-    //console.log("success")
+      let data = {name: categories[i]}
+      await fetch("/api/categories/create", { method: "POST", body: JSON.stringify(data), headers: {'content-type': 'application/json'}});
+    }
+    console.log("success")
   }
+
+  export let data;
+  console.log("DATA", data)
 </script>
 
+<!--
 <Button caption="Import categories" on:click={importCategories} />
-
+-->

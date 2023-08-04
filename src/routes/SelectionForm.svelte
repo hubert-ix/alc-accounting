@@ -3,8 +3,11 @@
   import dayjs from 'dayjs';
   import localeData from 'dayjs/plugin/localeData.js';
   import SelectInput from "$lib/SelectInput.svelte";
+  import Button from "$lib/Button.svelte";
 
   dayjs.extend(localeData);
+
+  export let categories;
 
   let dispatch = createEventDispatcher();
   let currentYear = dayjs().year();
@@ -31,11 +34,13 @@
     months.push({value: parseInt(i) + 1, label: monthsArray[i]});
   }
 
-  let categories = [
+  // set categories
+  let categoryOptions = [
     {value: 0, label: "All categories"},
-    {value: 1, label: "ok"},
-    {value: 2, label: "fantastic"},
   ];
+  for (let i in categories) {
+    categoryOptions.push({value: categories[i].id, label: categories[i].name});
+  }
 
   function change() {
     dispatch("change", {year: selectedYear, month: selectedMonth, category: selectedCategory});
@@ -45,9 +50,11 @@
 
 <div class="selection-form">
 
+  <div>Show</div>
   <SelectInput options={years} bind:value={selectedYear} on:change={change} />
   <SelectInput options={months} bind:value={selectedMonth} on:change={change} />
-  <SelectInput options={categories} bind:value={selectedCategory} on:change={change} />
+  <SelectInput options={categoryOptions} bind:value={selectedCategory} on:change={change} />
+  <Button caption="+" on:click={() => dispatch("toggleInputForm")} />
 
 </div>
 
@@ -58,6 +65,8 @@
     padding: 2rem;
     background: var(--color-light);
     display: flex;
+    align-items: center;
     grid-column-gap: 1rem;
+    margin-bottom: 1rem;
   }
 </style>

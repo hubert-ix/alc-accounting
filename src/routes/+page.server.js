@@ -1,12 +1,10 @@
-export const actions = {
-  default: async ({ request }) => {
-    let data = await request.formData();
-    let company = data.get('company');
-    let description = data.get('description');
-    let amount = data.get('amount');
-    let hst = data.get('hst');
-    let tip = data.get('tip');
-    let category = data.get('category');
-    return { success: true };
-  }
-};
+export async function load({ fetch }) {
+  let data = {};
+  let result = await fetch("/api/categories/list", { method: "POST", body: JSON.stringify(data), headers: {'content-type': 'application/json'}});
+  let response = await result.json();
+  let categories = response.categories.rows;
+  result = await fetch("/api/operations/list", { method: "POST", body: JSON.stringify(data), headers: {'content-type': 'application/json'}});
+  response = await result.json();
+  let operations = response.operations.rows;
+  return { categories, operations };
+}
