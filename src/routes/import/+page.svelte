@@ -41,6 +41,6 @@
   }
 </script>
 
-
+{process.env.POSTGRES_URL}
 <Button caption="Import categories" on:click={importCategories} />
 
