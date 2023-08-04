@@ -24,16 +24,16 @@
     width: 100%;
   }
 
-  input::placeholder, textarea::placeholder {
+  input::placeholder {
     color: #bdbdbd;
   }
 
-  input:disabled, textarea:disabled {
+  input:disabled {
     border-color: #e0e0e0;
     background-color: #eee;
   }
 
-  input:focus, textarea:focus {
+  input:focus {
     border-color: var(--color-primary); 
     outline: none;
   }

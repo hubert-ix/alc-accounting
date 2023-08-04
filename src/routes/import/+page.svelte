@@ -30,11 +30,14 @@
       'Hydro',
       'Gifts'
     ];
+    /*
     for (let i in categories) {
       await sql`
         INSERT INTO categories (name) VALUES (${categories[i]})
       `;
-    }
+    }*/
+    const cats = await sql`SELECT * FROM categories;`;
+    console.log("success")
   }
 </script>
 
