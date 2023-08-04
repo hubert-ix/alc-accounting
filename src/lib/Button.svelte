@@ -11,7 +11,7 @@
 </script>
 
 
-<button {disabled}>
+<button {disabled} on:click>
   {#if !loading}
     {caption}
   {:else}
