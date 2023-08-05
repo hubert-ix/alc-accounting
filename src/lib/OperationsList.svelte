@@ -19,10 +19,15 @@
   let totalHST = 0;
   let totalTip = 0;
 
-  for (let i in operations) {
-    totalAmount += operations[i].amount;
-    totalHST += operations[i].hst;
-    totalTip += operations[i].tip;
+  $: if (operations) {
+    totalAmount = 0;
+    totalHST = 0;
+    totalTip = 0;
+    for (let i in operations) {
+      totalAmount += operations[i].amount;
+      totalHST += operations[i].hst;
+      totalTip += operations[i].tip;
+    }
   }
 
   function displayCategory(categoryId) {

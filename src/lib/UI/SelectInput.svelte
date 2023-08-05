@@ -21,4 +21,9 @@
     border-radius: 0;
     width: 100%;
   }
+
+  select:focus {
+    border: solid 2px var(--color-primary);
+    outline: none;
+  }
 </style>

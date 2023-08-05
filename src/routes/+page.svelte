@@ -19,7 +19,7 @@
     let data = e.detail;
     let result = await fetch("/api/operations/list", { method: "POST", body: JSON.stringify(data), headers: {'content-type': 'application/json'}});
     let response = await result.json();
-    operations = response.operations.rows;
+    operations = response.operations;
     filtering = false;
   }
 
