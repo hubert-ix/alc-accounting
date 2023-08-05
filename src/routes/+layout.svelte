@@ -1,5 +1,10 @@
 <script>
+  import { currentUser } from '$lib/stores/currentUser';
   import '../styles.css';
+
+  export let data;
+
+  $currentUser = data.currentUser;
 </script>
 
 
@@ -11,8 +16,22 @@
 
   <h1>Ultra Cool Accounting++</h1>
 
+  {#if $currentUser}
+    <a href="/logout" id="logout">Logout</a>
+  {/if}
+
   <div class="content">
     <slot />
   </div>
 
 </main>
+
+
+<style>
+  #logout {
+    position: absolute;
+    top: 10px;
+    right: 1.5rem;
+    text-decoration: underline;
+  }
+</style>

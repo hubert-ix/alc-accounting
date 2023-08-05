@@ -1,6 +1,11 @@
+import { redirect } from '@sveltejs/kit';
 import dayjs from 'dayjs';
 
-export async function load({ fetch }) {
+export async function load({ fetch, parent }) {
+  let { currentUser } = await parent();
+  if (!currentUser) {
+    throw redirect(302, "/login");
+  }
   // get categories
   let data = {};
   let result = await fetch("/api/categories/list", { method: "POST", body: JSON.stringify(data), headers: {'content-type': 'application/json'}});

@@ -8,9 +8,11 @@
 
 
 {#if type == "text"}
-  <input type="text" {name} {placeholder} {disabled} bind:value />
+  <input type="text" {name} id={name} {placeholder} {disabled} bind:value />
 {:else if type == "date"}
-  <input type="date" {name} {placeholder} {disabled} bind:value />
+  <input type="date" {name} id={name} {placeholder} {disabled} bind:value />
+  {:else if type == "password"}
+  <input type="password" {name} id={name} {placeholder} {disabled} bind:value />
 {/if}
 
 <style>
