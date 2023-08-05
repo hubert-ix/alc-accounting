@@ -9,10 +9,8 @@ export const POST = async({request, locals }) => {
     password: req.password,
   }
 
-  console.log("DATA", data)
-
-  let correctEmail = "hubert.razack@weareverse.com";
-  let correctPassword = "Mo260800!";
+  let correctEmail = import.meta.env.VITE_EMAIL;
+  let correctPassword = import.meta.env.VITE_PASSWORD;
 
   if (data.email != correctEmail || data.password != correctPassword) {
     return new Response(JSON.stringify({ error: "Wrong email/password" }));

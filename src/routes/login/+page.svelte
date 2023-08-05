@@ -49,7 +49,6 @@
       loading = false;
       return;
     }
-    console.log("LOGGED IN, redirecting", data.currentUser)
     location.href = "/"; // we do this force refresh so that +layout.server.js is called
   }
 </script>
