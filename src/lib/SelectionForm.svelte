@@ -11,7 +11,7 @@
 
   let dispatch = createEventDispatcher();
   let currentYear = dayjs().year();
-  let currentMonth = dayjs().month();
+  let currentMonth = dayjs().month() + 1;
 
   let selectedYear = currentYear;
   let selectedMonth = currentMonth;

@@ -8,7 +8,7 @@ export async function load({ fetch }) {
   let categories = response.categories;
   // get operations
   let currentYear = dayjs().year();
-  let currentMonth = dayjs().month();
+  let currentMonth = dayjs().month() + 1;
   data = {year: currentYear, month: currentMonth, category: 0};
   result = await fetch("/api/operations/list", { method: "POST", body: JSON.stringify(data), headers: {'content-type': 'application/json'}});
   response = await result.json();
