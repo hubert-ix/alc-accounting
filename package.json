@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev --port 3010",
-		"build": "vite build",
+		"build": "prisma generate && vite build",
 		"preview": "vite preview"
 	},
 	"devDependencies": {

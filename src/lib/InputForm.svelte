@@ -75,7 +75,7 @@
     $form.category = 0;
   }
 
-  function quickLinks() {
+  function quickLink() {
 
   }
 </script>
