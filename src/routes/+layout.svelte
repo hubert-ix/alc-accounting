@@ -14,7 +14,7 @@
 
 <main class="container">
 
-  <h1>Ultra Cool Accounting++</h1>
+  <h1>Ultra Cool Accounting++ 2.0</h1>
 
   {#if $currentUser}
     <a href="/logout" id="logout">Logout</a>
@@ -28,6 +28,14 @@
 
 
 <style>
+  h1 {
+    background: var(--color-primary);
+    margin: 1rem 0 0 0;
+    padding: 1rem;
+    color: #fff;
+    font-size: 2rem;
+  }
+
   #logout {
     position: absolute;
     top: 10px;

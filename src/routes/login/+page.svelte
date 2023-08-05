@@ -76,10 +76,13 @@
 
 <style>
   .login {
-    max-width: 500px;
     background: var(--color-light);
     border: solid 2px var(--color-primary);
     padding: 2rem;
+  }
+  
+  form {
+    max-width: 500px;
   }
 
   .button {
