@@ -69,7 +69,7 @@
         <td class="price">{operation.amount.toFixed(2)}</td>
         <td class="price">{operation.hst.toFixed(2)}</td>
         <td class="price">{operation.tip.toFixed(2)}</td>
-        <td class="small edit"><a href="/"><img src="/images/icon-edit.svg" alt="edit" width="20" /></a></td>
+        <td class="small edit"><a href="/operations/{operation.id}"><img src="/images/icon-edit.svg" alt="edit" width="20" /></a></td>
         <td class="small"><a on:click={() => openPopup(operation)}><img src="/images/icon-delete.svg" alt="delete" width="12" /></a></td>
       </tr>
     {/each}

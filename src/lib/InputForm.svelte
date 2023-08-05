@@ -1,4 +1,5 @@
 <script>
+  import { goto } from '$app/navigation';
   import { createEventDispatcher } from 'svelte';
   import { slide } from 'svelte/transition';
   import { createForm } from "svelte-forms-lib";
@@ -10,6 +11,7 @@
 
   export let categories;
   export let saving;
+  export let operation = null;
 
   let dispatch = createEventDispatcher();
   let today = dayjs().format("YYYY-MM-DD");
@@ -25,17 +27,21 @@
     categoryOptions.push({value: categories[i].id, label: categories[i].name});
   }
 
+  if (operation) {
+    operation.date = operation.date.slice(0, -14);
+  }
+
   // set up the form
   const { form, errors, state, handleChange, handleSubmit } = createForm({
     initialValues: {
-      type: "expense",
-      date: today,
-      company: "",
-      description: "",
-      amount: "",
-      hst: "",
-      tip: "",
-      categoryId: 0,
+      type: (operation)?operation.type:"expense",
+      date: (operation)?operation.date:today,
+      company: (operation)?operation.company:"",
+      description: (operation)?operation.description:"",
+      amount: (operation)?operation.amount:"",
+      hst: (operation)?operation.hst:"",
+      tip: (operation)?operation.tip:"",
+      categoryId: (operation)?operation.categoryId:0,
     },
     validate: values => {
       let errs = {};
@@ -65,7 +71,7 @@
     }
   });
 
-  $: if (saving == false) {
+  $: if (!operation && saving == false) {
     $form.type = "expense";
     $form.date = today;
     $form.company = "";
@@ -74,6 +80,11 @@
     $form.hst = "";
     $form.tip = "";
     $form.categoryId = 0;
+  }
+
+  function cancel(e) {
+    e.preventDefault();
+    goto("/");
   }
 
   function quickLink() {
@@ -117,8 +128,11 @@
       <SelectInput options={categoryOptions} bind:value={$form.categoryId} />
     </FormItem>
 
-    <div class="button">
+    <div class="buttons">
       <Button caption="Save" loading={saving} />
+      {#if operation}
+        <Button caption="Cancel" style="outlined" on:click={cancel} />
+      {/if}
     </div>
 
   </form>
@@ -156,7 +170,9 @@
     cursor: pointer;
   }
 
-  .button {
+  .buttons {
     margin-left: 100px;
+    display: flex;
+    grid-column-gap: 1rem;
   }
 </style>
