@@ -1,10 +1,12 @@
-import { sql } from '@vercel/postgres';
+import { db } from '$lib/db.server'
 
 export const POST = async({ request }) => {
-  // gather all the parameters
   let req = await request.json();
   const { name } = req;
-  // create category
-  await sql`INSERT INTO categories (name) VALUES (${name})`;
+  const category = await db.category.create({
+    data: {
+      name
+    },
+  })
   return new Response();
 }

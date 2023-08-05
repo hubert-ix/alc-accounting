@@ -35,7 +35,7 @@
       amount: "",
       hst: "",
       tip: "",
-      category: 0,
+      categoryId: 0,
     },
     validate: values => {
       let errs = {};
@@ -48,8 +48,8 @@
       if (values.amount == "") {
         errs.amount = "Please enter an amount";
       }
-      if (values.category == 0) {
-        errs.category = "Please select a category";
+      if (values.categoryId == 0) {
+        errs.categoryId = "Please select a category";
       }
       if (values.hst == "") {
         values.hst = 0;
@@ -60,6 +60,7 @@
       return errs;
     },
     onSubmit: async values => {
+      values.date += "T00:00:00.000Z";
       dispatch("saved", {values});
     }
   });
@@ -72,7 +73,7 @@
     $form.amount = "";
     $form.hst = "";
     $form.tip = "";
-    $form.category = 0;
+    $form.categoryId = 0;
   }
 
   function quickLink() {
@@ -112,8 +113,8 @@
       <TextInput name="tip" bind:value={$form.tip} />
     </FormItem>
 
-    <FormItem label="Category" errorMessage={$errors.category}>
-      <SelectInput options={categoryOptions} bind:value={$form.category} />
+    <FormItem label="Category" errorMessage={$errors.categoryId}>
+      <SelectInput options={categoryOptions} bind:value={$form.categoryId} />
     </FormItem>
 
     <div class="button">

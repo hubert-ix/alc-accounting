@@ -1,5 +1,4 @@
 <script>
-  import { sql } from '@vercel/postgres';
   import Button from "$lib/UI/Button.svelte";
 
   async function importCategories() {
@@ -37,11 +36,6 @@
     }
     console.log("success")
   }
-
-  export let data;
-  console.log("DATA", data)
 </script>
 
-<!--
 <Button caption="Import categories" on:click={importCategories} />
--->

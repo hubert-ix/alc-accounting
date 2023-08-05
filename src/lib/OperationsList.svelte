@@ -49,9 +49,9 @@
       <th>Company</th>
       <th>Description</th>
       <th>Category</th>
-      <th>Amount</th>
-      <th>HST</th>
-      <th>Tip</th>
+      <th class="price">Amount</th>
+      <th class="price">HST</th>
+      <th class="price">Tip</th>
       <th></th>
       <th></th>
     </tr>
@@ -60,7 +60,7 @@
         <td>{dayjs(operation.date).format("DD/MM/YYYY")}</td>
         <td>{operation.company}</td>
         <td>{operation.description}</td>
-        <td>{displayCategory(operation.category)}</td>
+        <td>{displayCategory(operation.categoryId)}</td>
         <td class="price">{operation.amount.toFixed(2)}</td>
         <td class="price">{operation.hst.toFixed(2)}</td>
         <td class="price">{operation.tip.toFixed(2)}</td>
@@ -107,7 +107,7 @@
     opacity: 0.3;
   }
 
-  td.price {
+  td.price, th.price {
     text-align: right;
   }
 

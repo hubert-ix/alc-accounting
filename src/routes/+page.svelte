@@ -29,8 +29,8 @@
     let data = { values };
     let result = await fetch("/api/operations/create", { method: "POST", body: JSON.stringify(data), headers: {'content-type': 'application/json'}});
     let response = await result.json();
-    let newOperation = {id: response.id, ...values};
-    console.log(newOperation)
+    let newOperation = response.operation;
+    operations = [...operations, newOperation];
     saving = false;
   }
 
