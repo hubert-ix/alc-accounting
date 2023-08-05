@@ -81,15 +81,16 @@ h1 {
 }
 
 h2 {
-	margin: 32px 0 24px 0;
+	margin: 0 0 24px 0;
 	font-weight: 500;
 	font-size: 2rem;
 }
 
 h3 {
-	margin: 32px 0 24px 0;
+	margin: 0 0 24px 0;
 	font-weight: 500;
-	font-size: 1.75rem;
+	font-size: 1.25rem;
+	color: #000;
 }
 
 p {
@@ -128,6 +129,7 @@ table {
   border-collapse: collapse;
   border: solid 2px var(--color-primary);
   width: 100%;
+	transition: opacity 200ms ease;
 }
 
 th {
@@ -145,8 +147,8 @@ th.checkbox {
 
 td {
   border-bottom: 1px solid var(--color-primary);
-  padding: 0.5rem 1rem;
-  height: 4rem;
+  padding: 0.6rem 1rem;
+	background: #fff;
 }
 
 

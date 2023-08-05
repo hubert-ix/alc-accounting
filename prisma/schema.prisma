@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model categories {
+  id   Int     @id @default(autoincrement())
+  name String? @db.VarChar(255)
+}
+
+model operations {
+  id          Int       @id @default(autoincrement())
+  type        String?   @db.VarChar(255)
+  date        DateTime? @db.Date
+  company     String?   @db.VarChar(255)
+  description String?   @db.VarChar(255)
+  category    Int?
+  amount      Float?    @db.Real
+  hst         Float?    @db.Real
+  tip         Float?    @db.Real
+  invoice     String?   @db.VarChar(255)
+  date_paid   DateTime? @db.Date
+}

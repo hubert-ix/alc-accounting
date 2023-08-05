@@ -1,20 +1,26 @@
 <script>
   import { fade } from "svelte/transition";
-  import InputForm from "./InputForm.svelte";
-  import SelectionForm from "./SelectionForm.svelte";
-  import OperationsList from "./OperationsList.svelte";
+  import InputForm from "$lib/InputForm.svelte";
+  import SelectionForm from "$lib/SelectionForm.svelte";
+  import OperationsList from "$lib/OperationsList.svelte";
 
   export let data;
 
   let { categories, operations } = data;
   let saving = false;
+  let filtering = false;
   let showInputForm = false;
 
   // sort the categories alphabetically
   categories.sort((a, b) => a.name.localeCompare(b.name));
 
-  function updateList(e) {
-    console.log(e.detail)
+  async function updateList(e) {
+    filtering = true;
+    let data = e.detail;
+    let result = await fetch("/api/operations/list", { method: "POST", body: JSON.stringify(data), headers: {'content-type': 'application/json'}});
+    let response = await result.json();
+    operations = response.operations.rows;
+    filtering = false;
   }
 
   async function createOperation(e) {
@@ -27,6 +33,13 @@
     console.log(newOperation)
     saving = false;
   }
+
+  async function deleteOperation(e) {
+    let operation = e.detail.operation;
+    operations = operations.filter(obj => obj.id != operation.id);
+    let data = { id: operation.id };
+    await fetch("/api/operations/delete", { method: "POST", body: JSON.stringify(data), headers: {'content-type': 'application/json'}});
+  }
 </script>
 
 
@@ -35,7 +48,7 @@
   {#if showInputForm}
     <InputForm {categories} {saving} on:saved={createOperation} />
   {/if}
-  <OperationsList {operations} />
+  <OperationsList {operations} {categories} {filtering} on:delete={deleteOperation} />
 </div>
 
 

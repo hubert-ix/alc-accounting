@@ -2,8 +2,8 @@
   import { createEventDispatcher } from 'svelte';
   import dayjs from 'dayjs';
   import localeData from 'dayjs/plugin/localeData.js';
-  import SelectInput from "$lib/SelectInput.svelte";
-  import Button from "$lib/Button.svelte";
+  import SelectInput from "$lib/UI/SelectInput.svelte";
+  import Button from "$lib/UI/Button.svelte";
 
   dayjs.extend(localeData);
 
@@ -54,7 +54,7 @@
   <SelectInput options={years} bind:value={selectedYear} on:change={change} />
   <SelectInput options={months} bind:value={selectedMonth} on:change={change} />
   <SelectInput options={categoryOptions} bind:value={selectedCategory} on:change={change} />
-  <Button caption="+" on:click={() => dispatch("toggleInputForm")} />
+  <Button caption="+" style="small" on:click={() => dispatch("toggleInputForm")} />
 
 </div>
 

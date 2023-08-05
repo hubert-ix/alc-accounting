@@ -3,10 +3,10 @@
   import { slide } from 'svelte/transition';
   import { createForm } from "svelte-forms-lib";
   import dayjs from "dayjs";
-  import FormItem from "$lib/FormItem.svelte";
-  import Button from "$lib/Button.svelte";
-  import TextInput from "$lib/TextInput.svelte";
-  import SelectInput from "$lib/SelectInput.svelte";
+  import FormItem from "$lib/UI/FormItem.svelte";
+  import Button from "$lib/UI/Button.svelte";
+  import TextInput from "$lib/UI/TextInput.svelte";
+  import SelectInput from "$lib/UI/SelectInput.svelte";
 
   export let categories;
   export let saving;
@@ -74,6 +74,10 @@
     $form.tip = "";
     $form.category = 0;
   }
+
+  function quickLinks() {
+
+  }
 </script>
 
 
@@ -117,6 +121,14 @@
     </div>
 
   </form>
+
+  <div class="quick-links">
+    <h3>Quick links</h3>
+    <div on:click={() => quickLink("roger")}>Rogers</div>
+    <div on:click={() => quickLink("bell")}>Bell</div>
+    <div on:click={() => quickLink("hydro")}>Hydro</div>
+    <div on:click={() => quickLink("gas")}>Gas</div>
+  </div>
 </div>
 
 
@@ -126,10 +138,21 @@
     padding: 2rem;
     background: var(--color-light);
     margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
   }
 
   form {
     max-width: 400px;
+  }
+
+  .quick-links {
+    width: 400px;
+  }
+
+  .quick-links div {
+    color: var(--color-secondary);
+    cursor: pointer;
   }
 
   .button {
