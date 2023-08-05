@@ -1,6 +1,6 @@
 <script>
   import { sql } from '@vercel/postgres';
-  import Button from "$lib/Button.svelte";
+  import Button from "$lib/UI/Button.svelte";
 
   async function importCategories() {
     let categories = [
