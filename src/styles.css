@@ -1,11 +1,9 @@
 :root {
 	--font-body: Roboto, sans-serif;
 	--color-text: #000;
-  --color-primary: #5ca4a9;
-  --color-secondary: #ed6a5a;
-  --color-light: #f1f9e6;
-  /*ffeedd
-  ffd8be*/
+  --color-primary: #FF9B9B;
+  --color-secondary: #f5e4d0;
+  --color-light: #ffffd7;
 	font-family: var(--font-body);
 	color: var(--color-text);
 }
@@ -112,7 +110,7 @@ a {
 	text-decoration: none;
 	outline: none;
 	cursor: pointer;
-	color: var(--color-secondary);
+	color: var(--color-primary);
 }
 
 a, button {
@@ -136,6 +134,7 @@ th {
   color: #000;
   font-weight: 600;
   border-bottom: 2px solid var(--color-primary);
+	background: var(--color-secondary);
   padding: 0.5rem 1rem;
   white-space: nowrap;
   height: 4rem;

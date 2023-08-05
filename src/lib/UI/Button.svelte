@@ -29,8 +29,8 @@
     font-size: 1rem;
     cursor: pointer;
     padding: 1rem 2rem;
-    background: var(--color-secondary);
-    border: solid 2px var(--color-secondary);
+    background: var(--color-primary);
+    border: solid 2px var(--color-primary);
     color: #fff;
   }
 

@@ -11,7 +11,7 @@
   <input type="text" {name} id={name} {placeholder} {disabled} bind:value />
 {:else if type == "date"}
   <input type="date" {name} id={name} {placeholder} {disabled} bind:value />
-  {:else if type == "password"}
+{:else if type == "password"}
   <input type="password" {name} id={name} {placeholder} {disabled} bind:value />
 {/if}
 

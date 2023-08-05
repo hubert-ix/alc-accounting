@@ -128,7 +128,7 @@
 
   tr.total td {
     border-top: 2px solid var(--color-primary);
-    background: #ffffd7;
+    background: var(--color-light);
     font-weight: bold;
   }
 
