@@ -44,7 +44,7 @@
 
 
 <div in:fade>
-  <Filters {categories} on:change={updateList} on:toggleInputForm={() => showInputForm = !showInputForm} />
+  <OperationsFilters {categories} on:change={updateList} on:toggleInputForm={() => showInputForm = !showInputForm} />
   {#if showInputForm}
     <OperationForm {categories} {saving} on:saved={createOperation} />
   {/if}
