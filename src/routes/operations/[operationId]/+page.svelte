@@ -1,6 +1,6 @@
 <script>
   import { goto } from '$app/navigation';
-  import InputForm from '$lib/InputForm.svelte';
+  import OperationForm from '$lib/OperationForm.svelte';
 
   export let data;
 
@@ -17,4 +17,4 @@
 </script>
 
 
-<InputForm {operation} {categories} {saving} on:saved={updateOperation} />
+<OperationForm {operation} {categories} {saving} on:saved={updateOperation} />
