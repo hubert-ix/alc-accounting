@@ -1,7 +1,7 @@
 <script>
   import { fade } from "svelte/transition";
-  import InputForm from "$lib/InputForm.svelte";
-  import SelectionForm from "$lib/SelectionForm.svelte";
+  import OperationForm from "$lib/OperationForm.svelte";
+  import OperationsFilters from "$lib/OperationsFilters.svelte";
   import OperationsList from "$lib/OperationsList.svelte";
 
   export let data;
@@ -44,9 +44,9 @@
 
 
 <div in:fade>
-  <SelectionForm {categories} on:change={updateList} on:toggleInputForm={() => showInputForm = !showInputForm} />
+  <Filters {categories} on:change={updateList} on:toggleInputForm={() => showInputForm = !showInputForm} />
   {#if showInputForm}
-    <InputForm {categories} {saving} on:saved={createOperation} />
+    <OperationForm {categories} {saving} on:saved={createOperation} />
   {/if}
   <OperationsList {operations} {categories} {filtering} on:delete={deleteOperation} />
 </div>
