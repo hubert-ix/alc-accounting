@@ -6,9 +6,7 @@
   export let loading = false;
   export let style = "";
 
-  if (loading) {
-    disabled = true;
-  }
+  $: disabled = (loading);
 </script>
 
 
@@ -51,6 +49,6 @@
 
   button.outlined {
     background: #fff;
-    color: var(--color-secondary);
+    color: var(--color-primary);
   }
 </style>

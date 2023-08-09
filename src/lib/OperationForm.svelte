@@ -27,10 +27,6 @@
     categoryOptions.push({value: categories[i].id, label: categories[i].name});
   }
 
-  if (operation) {
-    operation.date = operation.date.slice(0, -14);
-  }
-
   // set up the form
   const { form, errors, state, handleChange, handleSubmit } = createForm({
     initialValues: {
@@ -41,7 +37,7 @@
       amount: (operation)?operation.amount:"",
       hst: (operation)?operation.hst:"",
       tip: (operation)?operation.tip:"",
-      categoryId: (operation)?operation.categoryId:0,
+      category_id: (operation)?operation.category_id:0,
     },
     validate: values => {
       let errs = {};
@@ -54,8 +50,8 @@
       if (values.amount == "") {
         errs.amount = "Please enter an amount";
       }
-      if (values.categoryId == 0) {
-        errs.categoryId = "Please select a category";
+      if (values.category_id == 0) {
+        errs.category_id = "Please select a category";
       }
       if (values.hst == "") {
         values.hst = 0;
@@ -66,7 +62,6 @@
       return errs;
     },
     onSubmit: async values => {
-      values.date += "T00:00:00.000Z";
       dispatch("saved", {values});
     }
   });
@@ -79,7 +74,7 @@
     $form.amount = "";
     $form.hst = "";
     $form.tip = "";
-    $form.categoryId = 0;
+    $form.category_id = 0;
   }
 
   function cancel(e) {
@@ -124,8 +119,8 @@
       <TextInput name="tip" bind:value={$form.tip} />
     </FormItem>
 
-    <FormItem label="Category" errorMessage={$errors.categoryId}>
-      <SelectInput options={categoryOptions} bind:value={$form.categoryId} />
+    <FormItem label="Category" errorMessage={$errors.category_id}>
+      <SelectInput options={categoryOptions} bind:value={$form.category_id} />
     </FormItem>
 
     <div class="buttons">
@@ -166,7 +161,7 @@
   }
 
   .quick-links div {
-    color: var(--color-secondary);
+    color: var(--color-primary);
     cursor: pointer;
   }
 

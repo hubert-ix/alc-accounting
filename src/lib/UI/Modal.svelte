@@ -23,7 +23,7 @@
     <slot />
     
     {#if showCloseButton}
-      <button on:click|preventDefault={close} class="close">X</button>
+      <button on:click|preventDefault={close} class="close"><img src="/images/icon-delete.svg" alt="close" /></button>
     {/if}
 
   </div>
@@ -63,9 +63,10 @@
     right: 20px;
     padding: 0;
     border: none;
+    background: none;
     outline: none;
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
     cursor: pointer;
   }
 </style>

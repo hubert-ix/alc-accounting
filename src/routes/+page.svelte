@@ -14,10 +14,10 @@
   // sort the categories alphabetically
   categories.sort((a, b) => a.name.localeCompare(b.name));
 
-  async function updateList(e) {
+  async function filterList(e) {
     filtering = true;
-    let data = e.detail;
-    let result = await fetch("/api/operations/list", { method: "POST", body: JSON.stringify(data), headers: {'content-type': 'application/json'}});
+    let dataFilter = e.detail;
+    let result = await fetch("/api/operations/list", { method: "POST", body: JSON.stringify(dataFilter), headers: {'content-type': 'application/json'}});
     let response = await result.json();
     operations = response.operations;
     filtering = false;
@@ -30,6 +30,7 @@
     let result = await fetch("/api/operations/create", { method: "POST", body: JSON.stringify(data), headers: {'content-type': 'application/json'}});
     let response = await result.json();
     let newOperation = response.operation;
+    console.log("NEW", newOperation)
     operations = [...operations, newOperation];
     saving = false;
   }
@@ -44,7 +45,7 @@
 
 
 <div in:fade>
-  <OperationsFilters {categories} on:change={updateList} on:toggleInputForm={() => showInputForm = !showInputForm} />
+  <OperationsFilters {categories} on:change={filterList} on:toggleInputForm={() => showInputForm = !showInputForm} />
   {#if showInputForm}
     <OperationForm {categories} {saving} on:saved={createOperation} />
   {/if}

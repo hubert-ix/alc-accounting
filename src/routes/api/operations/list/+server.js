@@ -1,30 +1,27 @@
-import { db } from '$lib/db.server'
+import { supabase } from '$lib/db.server.js';
 
 export const POST = async({ request }) => {
   // gather all the parameters
   let req = await request.json();
-  const { year, month, categoryId } = req;
-  let where = {};
-  if (categoryId) {
-    where.categoryId = categoryId;
+  const { year, month, category_id } = req;
+  // get the data
+  let query = supabase.from('operations').select().order('date').limit(100);
+  if (category_id) {
+    query.eq("category_id", category_id);
   }
   if (year) {
-    let startDate = year + "-01-01T00:00:00.000Z";
-    let endDate = parseInt(year + 1) + "-01-01T00:00:00.000Z";
+    let startDate = year + "-01-01";
+    let endDate = parseInt(year + 1) + "-01-01";
     if (month) {
       let nextMonth = (month < 12)?month + 1:1;
       let year2 = (month < 12)?year:year+1;
-      startDate = year + "-" + month.toString().padStart(2, '0') + "-01T00:00:00.000Z";
-      endDate = year2 + "-" + nextMonth.toString().padStart(2, '0') + "-01T00:00:00.000Z";
+      startDate = year + "-" + month.toString().padStart(2, '0') + "-01";
+      endDate = year2 + "-" + nextMonth.toString().padStart(2, '0') + "-01";
     }
-    where.date = {
-      gte: startDate,
-      lte: endDate
-    }
+    query.gte('date', startDate);
+    query.lte('date', endDate);
   }
-  let operations = await db.operation.findMany({
-    where,
-    orderBy: {date: 'asc'}
-  });
-  return new Response(JSON.stringify({ operations }));
+  const { data } = await query;
+  // return data
+  return new Response(JSON.stringify({ operations: data }));
 }

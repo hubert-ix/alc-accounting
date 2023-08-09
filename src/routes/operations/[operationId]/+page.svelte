@@ -10,7 +10,7 @@
   async function updateOperation(e) {
     saving = true;
     let values = e.detail.values;
-    let data = { values, operationId: operation.id };
+    let data = { values, operation_id: operation.id };
     await fetch("/api/operations/update", { method: "POST", body: JSON.stringify(data), headers: {'content-type': 'application/json'}});
     goto("/")
   }

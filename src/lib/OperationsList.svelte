@@ -32,7 +32,12 @@
 
   function displayCategory(categoryId) {
     let category = categories.find(obj => obj.id == categoryId);
-    return category.name;
+    if (typeof category !== "undefined") {
+      return category.name;
+    }
+    else {
+      return "- unknown -"
+    }
   }
 
   function openPopup(operation) {
@@ -65,7 +70,7 @@
         <td>{dayjs(operation.date).format("DD/MM/YYYY")}</td>
         <td>{operation.company}</td>
         <td>{operation.description}</td>
-        <td>{displayCategory(operation.categoryId)}</td>
+        <td>{displayCategory(operation.category_id)}</td>
         <td class="price">{operation.amount.toFixed(2)}</td>
         <td class="price">{operation.hst.toFixed(2)}</td>
         <td class="price">{operation.tip.toFixed(2)}</td>
@@ -97,8 +102,10 @@
 {#if showPopup}
   <Modal on:close={() => showPopup = false}>
     <p>Are you sure you want to delete this operation?</p>
-    <Button caption="Delete" on:click={deleteOperation} />
-    <Button caption="Cancel" style="outlined" on:click={() => showPopup = false} />
+    <div class="buttons">
+      <Button caption="Delete" on:click={deleteOperation} />
+      <Button caption="Cancel" style="outlined" on:click={() => showPopup = false} />
+    </div>
   </Modal>
 {/if}
 
@@ -144,5 +151,10 @@
     align-items: center;
     width: 100%;
     justify-content: center;
+  }
+
+  .buttons {
+    display: flex;
+    grid-column-gap: 1rem;
   }
 </style>

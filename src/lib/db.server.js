@@ -1,3 +1,3 @@
-import { PrismaClient } from '@prisma/client';
+import { createClient } from '@supabase/supabase-js';
 
-export const db = new PrismaClient();
+export const supabase = createClient(import.meta.env.VITE_SUPABASE_DOMAIN, import.meta.env.VITE_SUPABASE_API_KEY);

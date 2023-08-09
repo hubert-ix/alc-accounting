@@ -43,7 +43,7 @@
   }
 
   function change() {
-    dispatch("change", {year: selectedYear, month: selectedMonth, categoryId: selectedCategory});
+    dispatch("change", {year: selectedYear, month: selectedMonth, category_id: selectedCategory});
   }
 </script>
 
