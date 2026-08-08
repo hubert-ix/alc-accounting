@@ -4,15 +4,16 @@
   import localeData from 'dayjs/plugin/localeData.js';
   import SelectInput from "$lib/UI/SelectInput.svelte";
   import Button from "$lib/UI/Button.svelte";
+    import Stats from './Stats.svelte';
 
   dayjs.extend(localeData);
 
   let { categories, toggleInputForm, filter, year, month, categoryId } = $props();
   let currentYear = dayjs().year();
-
   let selectedYear = $state(year === 'all' ? 'all' : parseInt(year));
   let selectedMonth = $state(month === 'all' ? 'all' : parseInt(month));
   let selectedCategory = $state(categoryId === 'all' ? 'all' : parseInt(categoryId));
+  let showStats = $state(false);
 
   // set the years
   let years = [
@@ -47,18 +48,29 @@
 
 <div class="wrap">
 
-  <SelectInput options={years} bind:value={selectedYear} changed={change} />
-  <SelectInput options={months} bind:value={selectedMonth} changed={change} />
-  <SelectInput options={categoryOptions} bind:value={selectedCategory} changed={change} />
+  <div class="filter-row">
 
-  <button aria-label="Add expense" onclick={toggleInputForm}>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus h-5 w-5" aria-hidden="true" data-tsd-source="/src/routes/index.tsx:96:15"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
-  </button>
+    <SelectInput options={years} bind:value={selectedYear} changed={change} />
+    <SelectInput options={months} bind:value={selectedMonth} changed={change} />
+    <SelectInput options={categoryOptions} bind:value={selectedCategory} changed={change} />
 
-  <button aria-label="Reset" class="reset" onclick={() => goto("/")}>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw h-4 w-4" aria-hidden="true" data-tsd-source="/src/routes/index.tsx:91:15"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
-  </button>
+    <button aria-label="Add expense" onclick={toggleInputForm}>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus h-5 w-5" aria-hidden="true" data-tsd-source="/src/routes/index.tsx:96:15"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+    </button>
 
+    <button aria-label="Stats" class="stats" onclick={() => showStats = !showStats}>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-column h-5 w-5" aria-hidden="true" data-tsd-source="/src/routes/index.tsx:139:17"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="M18 17V9"></path><path d="M13 17V5"></path><path d="M8 17v-3"></path></svg>
+    </button>
+
+    <button aria-label="Reset" class="stats" onclick={() => goto("/")}>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw h-4 w-4" aria-hidden="true" data-tsd-source="/src/routes/index.tsx:91:15"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+    </button>
+
+  </div>
+  
+  {#if showStats}
+    <Stats {selectedYear} {selectedMonth} {categories} />
+  {/if}
 </div>
 
 
@@ -68,10 +80,13 @@
     background: #fff3b0;
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .filter-row {
     display: flex;
     align-items: center;
     grid-column-gap: 1rem;
-    margin-bottom: 1rem;
   }
 
   button {
@@ -90,12 +105,13 @@
     cursor: pointer;
   }
 
-  button.reset {
-    background-color: #ffffffeb;
-    color: var(--color-text);
+  button.stats {
+    border: solid 2px #f4a5a0;
+    color: #ef8b85;
+    background: #fff;
   }
 
-  button.reset svg {
+  button.stats svg {
     width: 20px;
   }
 </style>

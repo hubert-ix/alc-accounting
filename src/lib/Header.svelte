@@ -9,14 +9,16 @@
 
   <h1>Happy Bookkeeping</h1>
 
-  {#if user}
-    <form method="POST" action="/logout" use:enhance id="logout">
-      <button type="submit">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out h-4 w-4" aria-hidden="true" data-tsd-source="/src/routes/index.tsx:95:15"><path d="m16 17 5-5-5-5"></path><path d="M21 12H9"></path><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path></svg>
-        Log out
-      </button>
-    </form>
-  {/if}
+  <div class="buttons">
+    {#if user}
+      <form method="POST" action="/logout" use:enhance id="logout">
+        <button type="submit">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out h-4 w-4" aria-hidden="true" data-tsd-source="/src/routes/index.tsx:95:15"><path d="m16 17 5-5-5-5"></path><path d="M21 12H9"></path><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path></svg>
+          Log out
+        </button>
+      </form>
+    {/if}
+  </div>
 </div>
 
 <style>
@@ -37,6 +39,11 @@
     margin: 0;
   }
 
+  .buttons {
+    display: flex;
+    gap: 1rem;
+  }
+
   button {
     background-color: #f27b7b;
     color: #fff;
@@ -53,5 +60,14 @@
 
   button svg {
     width: 16px;
+  }
+
+  button.reset {
+    background-color: #ffffffeb;
+    color: var(--color-text);
+  }
+
+  button.reset svg {
+    width: 20px;
   }
 </style>
