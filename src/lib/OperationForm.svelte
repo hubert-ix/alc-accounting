@@ -83,6 +83,11 @@
     $form.category_id = preset.category_id;
     document.getElementById("amount").focus();
   }
+
+  function updateHST() {
+    let amount = parseFloat($form.amount);
+    $form.hst = isNaN(amount) ? '' : Math.round(amount * 13) / 100;
+  }
 </script>
 
 
@@ -106,7 +111,7 @@
     </FormItem>
 
     <FormItem label="Amount" errorMessage={$errors.amount}>
-      <TextInput name="amount" bind:value={$form.amount} />
+      <TextInput name="amount" bind:value={$form.amount} changed={updateHST} />
     </FormItem>
 
     <FormItem label="HST" errorMessage={$errors.hst}>

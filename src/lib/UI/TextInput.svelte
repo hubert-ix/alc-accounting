@@ -1,14 +1,21 @@
 <script>
-  let { name, value = $bindable(), type = "text", placeholder = "", disabled = false } = $props();
+  let { 
+    name, 
+    value = $bindable(), 
+    type = "text", 
+    placeholder = "", 
+    disabled = false, 
+    changed = () => {},
+  } = $props();
 </script>
 
 
 {#if type == "text"}
-  <input type="text" {name} id={name} {placeholder} {disabled} bind:value />
+  <input type="text" {name} id={name} {placeholder} {disabled} bind:value oninput={changed} />
 {:else if type == "date"}
-  <input type="date" {name} id={name} {placeholder} {disabled} bind:value />
+  <input type="date" {name} id={name} {placeholder} {disabled} bind:value oninput={changed} />
 {:else if type == "password"}
-  <input type="password" {name} id={name} {placeholder} {disabled} bind:value />
+  <input type="password" {name} id={name} {placeholder} {disabled} bind:value oninput={changed} />
 {/if}
 
 
