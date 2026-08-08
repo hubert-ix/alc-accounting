@@ -1,23 +1,23 @@
 {
-	"name": "alc-accounting",
-	"version": "2.0.0",
+	"name": "my-app",
 	"private": true,
+	"version": "0.0.1",
+	"type": "module",
 	"scripts": {
-		"dev": "vite dev --port 3010",
+		"dev": "vite dev --port 4000",
 		"build": "vite build",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync || echo ''"
 	},
 	"devDependencies": {
-		"@supabase/supabase-js": "^2.32.0",
-		"@sveltejs/adapter-auto": "^2.0.0",
-		"@sveltejs/adapter-vercel": "^3.0.3",
-		"@sveltejs/kit": "^1.20.4",
-		"svelte": "^4.0.5",
-		"vite": "^4.4.2"
-	},
-	"type": "module",
-	"dependencies": {
-		"dayjs": "^1.11.9",
-		"svelte-forms-lib": "^2.0.1"
+		"@supabase/ssr": "^0.12.4",
+		"@supabase/supabase-js": "^2.112.2",
+		"@sveltejs/adapter-auto": "^7.0.1",
+		"@sveltejs/kit": "^2.63.0",
+		"@sveltejs/vite-plugin-svelte": "^7.1.2",
+		"dayjs": "^1.11.21",
+		"svelte": "^5.56.1",
+		"svelte-forms-lib": "^2.0.1",
+		"vite": "^8.0.16"
 	}
 }

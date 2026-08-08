@@ -1,9 +1,10 @@
 <script>
-  export let size = "medium";
-  export let style = ""; // can be "white"
+  let { size = "medium", style = ""} = $props();
 </script>
 
+
 <div class="spinner {size} {style}"></div>
+
 
 <style>
   .spinner {

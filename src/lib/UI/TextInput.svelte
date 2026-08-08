@@ -1,9 +1,5 @@
 <script>
-  export let name;
-  export let value;
-  export let type = "text";
-  export let placeholder = "";
-  export let disabled = false;
+  let { name, value = $bindable(), type = "text", placeholder = "", disabled = false } = $props();
 </script>
 
 
@@ -15,14 +11,15 @@
   <input type="password" {name} id={name} {placeholder} {disabled} bind:value />
 {/if}
 
+
 <style>
   input {
     font-family: var(--font-body);
     font-size: 1rem;
     color: var(--color-text);
     padding: 0.5rem;
-    border: solid 2px var(--color-primary);
-    border-radius: 0;
+    border: 2px solid #f4a5a0;
+    border-radius: 0.5rem;
     width: 100%;
   }
 

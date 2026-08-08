@@ -1,29 +1,19 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
+  import { preventDefault } from 'svelte/legacy';
   import { fade, fly } from 'svelte/transition';
   
-  const dispatch = createEventDispatcher();
-
-  export let showCloseButton = true;
-  
-  function close() {
-    dispatch("close");
-  }
-  
-  function sendShowEvent() {
-    dispatch("show");
-  }
+  let { children, showCloseButton = false, show, close } = $props();
 </script>
 
 
-<div class="modal-backdrop" transition:fade on:introend={sendShowEvent}>
+<div class="modal-backdrop" transition:fade onintroend={show}>
 
   <div class="modal" transition:fly={{y: 300}}>
   
-    <slot />
+    {@render children?.()}
     
     {#if showCloseButton}
-      <button on:click|preventDefault={close} class="close"><img src="/images/icon-delete.svg" alt="close" /></button>
+      <button onclick={preventDefault(close)} class="close"><img src="/images/icon-delete.svg" alt="close" /></button>
     {/if}
 
   </div>

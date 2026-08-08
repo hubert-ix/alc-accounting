@@ -1,6 +1,5 @@
 <script>
   import { goto } from '$app/navigation';
-  import { createEventDispatcher } from 'svelte';
   import { slide } from 'svelte/transition';
   import { createForm } from "svelte-forms-lib";
   import dayjs from "dayjs";
@@ -8,12 +7,9 @@
   import Button from "$lib/UI/Button.svelte";
   import TextInput from "$lib/UI/TextInput.svelte";
   import SelectInput from "$lib/UI/SelectInput.svelte";
+    import { onMount } from 'svelte';
 
-  export let categories;
-  export let saving;
-  export let operation = null;
-
-  let dispatch = createEventDispatcher();
+  let { categories, saving, operation = null, saved, cancelled } = $props();
   let today = dayjs().format("YYYY-MM-DD");
   let categoryOptions = [
     {value: 0, label: "- Select -"}
@@ -26,6 +22,13 @@
   for (let i in categories) {
     categoryOptions.push({value: categories[i].id, label: categories[i].name});
   }
+
+  const quickLinks = {
+    internet: { company: "Bell", description: "Internet", amount: 117, hst: 15.21, category_id: 19 },
+    cellphone: { company: "Bell", description: "Cell phone", amount: 45, hst: 5.85, category_id: 17 },
+    hydro:{ company: "Toronto Hydro", description: "Electricity", amount: "", hst: "", category_id: 0 },
+    gas: { company: "Enbridge", description: "Gas", amount: "", hst: "", category_id: 0 },
+  };
 
   // set up the form
   const { form, errors, state, handleChange, handleSubmit } = createForm({
@@ -62,34 +65,29 @@
       return errs;
     },
     onSubmit: async values => {
-      dispatch("saved", {values});
+      saved(values);
     }
   });
 
-  $: if (!operation && saving == false) {
-    $form.type = "expense";
-    $form.date = today;
-    $form.company = "";
-    $form.description = "";
-    $form.amount = "";
-    $form.hst = "";
-    $form.tip = "";
-    $form.category_id = 0;
-  }
+  onMount(() => {
+    document.getElementById("company").focus();
+  });
 
-  function cancel(e) {
-    e.preventDefault();
-    goto("/");
-  }
-
-  function quickLink() {
-
+  function quickLink(key) {
+    const preset = quickLinks[key];
+    if (!preset) return;
+    $form.company = preset.company;
+    $form.description = preset.description;
+    $form.amount = preset.amount;
+    $form.hst = preset.hst;
+    $form.category_id = preset.category_id;
+    document.getElementById("amount").focus();
   }
 </script>
 
 
 <div class="input-form" transition:slide>
-  <form on:submit={handleSubmit}>
+  <form onsubmit={handleSubmit}>
 
     <FormItem label="Type" errorMessage={$errors.type}>
       <SelectInput options={typeOptions} bind:value={$form.type} />
@@ -126,7 +124,9 @@
     <div class="buttons">
       <Button caption="Save" loading={saving} />
       {#if operation}
-        <Button caption="Cancel" style="outlined" on:click={cancel} />
+        <Button caption="Cancel" style="outlined" type="button" clicked={() => goto("/")} />
+      {:else}
+        <Button caption="Cancel" style="outlined" type="button" clicked={cancelled} />
       {/if}
     </div>
 
@@ -134,19 +134,20 @@
 
   <div class="quick-links">
     <h3>Quick links</h3>
-    <div on:click={() => quickLink("roger")}>Rogers</div>
-    <div on:click={() => quickLink("bell")}>Bell</div>
-    <div on:click={() => quickLink("hydro")}>Hydro</div>
-    <div on:click={() => quickLink("gas")}>Gas</div>
+    <div onclick={() => quickLink("internet")}>Internet</div>
+    <div onclick={() => quickLink("cellphone")}>Cell phone</div>
+    <div onclick={() => quickLink("hydro")}>Hydro</div>
+    <div onclick={() => quickLink("gas")}>Gas</div>
   </div>
 </div>
 
 
 <style>
   .input-form {
-    border: solid 2px var(--color-primary);
-    padding: 2rem;
-    background: var(--color-light);
+    border: solid 1px #fff3b0;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    background: #fff9d6;
     margin-bottom: 1rem;
     display: flex;
     justify-content: space-between;

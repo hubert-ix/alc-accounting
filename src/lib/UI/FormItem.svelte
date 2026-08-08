@@ -1,8 +1,7 @@
 <script>
   import { fade, slide } from 'svelte/transition';
 
-  export let label;
-  export let errorMessage = "";
+  let { label, errorMessage } = $props();
 </script>
 
 

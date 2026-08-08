@@ -1,11 +1,10 @@
 :root {
-	--font-body: Roboto, sans-serif;
+	--font-body: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 	--color-text: #000;
-  --color-primary: #FF9B9B;
+  --color-primary: #e85f5f;
   --color-secondary: #f5e4d0;
   --color-light: #ffffd7;
-	font-family: var(--font-body);
-	color: var(--color-text);
 }
 
 /* init */
@@ -26,6 +25,8 @@ footer {
 }
 
 body {
+	font-family: var(--font-body);
+	color: var(--color-text);
 	background: #fff;
 	text-align: center;
 	font-size: 1rem;
@@ -125,29 +126,33 @@ a:hover, button:hover {
 
 table {
   border-collapse: collapse;
-  border: solid 2px var(--color-primary);
   width: 100%;
 	transition: opacity 200ms ease;
 }
 
 th {
-  color: #000;
-  font-weight: 600;
-  border-bottom: 2px solid var(--color-primary);
-	background: var(--color-light);
-  padding: 0.5rem 1rem;
-  white-space: nowrap;
-  height: 4rem;
+	background: #fff3b0;
+  padding: 1rem 1.5rem;
+  font-weight: 800;
 }
 
 th.checkbox {
   width: 4rem;
 }
 
+tr.row {
+	border-top: 1px solid color-mix(in oklab, #f4a5a0 30%, transparent);
+}
+
 td {
-  border-bottom: 1px solid var(--color-primary);
-  padding: 0.6rem 1rem;
-	background: #fff;
+  padding: 0.75rem 1.5rem;
+}
+
+button, input, select, optgroup, textarea {
+	font: inherit;
+	font-feature-settings: inherit;
+	font-variation-settings: inherit;
+	letter-spacing: inherit;
 }
 
 

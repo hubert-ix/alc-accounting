@@ -1,0 +1,101 @@
+<script>
+  import { goto } from '$app/navigation';
+  import dayjs from 'dayjs';
+  import localeData from 'dayjs/plugin/localeData.js';
+  import SelectInput from "$lib/UI/SelectInput.svelte";
+  import Button from "$lib/UI/Button.svelte";
+
+  dayjs.extend(localeData);
+
+  let { categories, toggleInputForm, filter, year, month, categoryId } = $props();
+  let currentYear = dayjs().year();
+
+  let selectedYear = $state(year === 'all' ? 'all' : parseInt(year));
+  let selectedMonth = $state(month === 'all' ? 'all' : parseInt(month));
+  let selectedCategory = $state(categoryId === 'all' ? 'all' : parseInt(categoryId));
+
+  // set the years
+  let years = [
+    {value: "all", label: "All years"}
+  ];
+  for (let y = currentYear; y > currentYear - 10; y--) {
+    years.push({value: y, label: y});
+  }
+
+  // set the months
+  let monthsArray = dayjs.months();
+  let months = [
+    {value: "all", label: "All months"}
+  ];
+  for (let i in monthsArray) {
+    months.push({value: parseInt(i) + 1, label: monthsArray[i]});
+  }
+
+  // set categories
+  let categoryOptions = [
+    {value: "all", label: "All categories"},
+  ];
+  for (let i in categories) {
+    categoryOptions.push({value: categories[i].id, label: categories[i].name});
+  }
+
+  function change() {
+    filter(selectedYear, selectedMonth, selectedCategory);
+  }
+</script>
+
+
+<div class="wrap">
+
+  <SelectInput options={years} bind:value={selectedYear} changed={change} />
+  <SelectInput options={months} bind:value={selectedMonth} changed={change} />
+  <SelectInput options={categoryOptions} bind:value={selectedCategory} changed={change} />
+
+  <button aria-label="Add expense" onclick={toggleInputForm}>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus h-5 w-5" aria-hidden="true" data-tsd-source="/src/routes/index.tsx:96:15"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+  </button>
+
+  <button aria-label="Reset" class="reset" onclick={() => goto("/")}>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw h-4 w-4" aria-hidden="true" data-tsd-source="/src/routes/index.tsx:91:15"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+  </button>
+
+</div>
+
+
+<style>
+  .wrap {
+    padding: 1.25rem 1.5rem;
+    background: #fff3b0;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    grid-column-gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  button {
+    border-radius: 0.75rem;
+    background-color: #f27b7b;
+    color: #fff;
+    min-width: 2.75rem;
+    width: 2.75rem;
+    height: 2.75rem;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    transition: all .15s;
+    display: inline-flex;
+    border: 0;
+    cursor: pointer;
+  }
+
+  button.reset {
+    background-color: #ffffffeb;
+    color: var(--color-text);
+  }
+
+  button.reset svg {
+    width: 20px;
+  }
+</style>

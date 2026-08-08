@@ -1,16 +1,12 @@
 <script>
   import LoadingSpinner from "./LoadingSpinner.svelte";
 
-  export let caption;
-  export let disabled = false;
-  export let loading = false;
-  export let style = "";
-
-  $: disabled = (loading);
+  let { caption, disabled, loading, style = "", type = "submit", clicked } = $props();
+  //disabled = $derived(loading);
 </script>
 
 
-<button class={style} {disabled} on:click>
+<button {type} class={style} {disabled} onclick={clicked}>
   {#if !loading}
     {caption}
   {:else}
@@ -26,10 +22,14 @@
     font-family: var(--font-body);
     font-size: 1rem;
     cursor: pointer;
-    padding: 1rem 2rem;
-    background: var(--color-primary);
-    border: solid 2px var(--color-primary);
+    padding: .625rem 1.25rem;
+    background: #f27b7b;
+    border: 0;
+    border-radius: 0.5rem;
     color: #fff;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
   }
 
   button:disabled {
@@ -50,5 +50,6 @@
   button.outlined {
     background: #fff;
     color: var(--color-primary);
+    border: solid 1px var(--color-primary);
   }
 </style>

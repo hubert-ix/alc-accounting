@@ -4,8 +4,9 @@
   import FormItem from "$lib/UI/FormItem.svelte";
   import Button from "$lib/UI/Button.svelte";
   import TextInput from "$lib/UI/TextInput.svelte";
+  import * as api from '$lib/api';
 
-  let loading = false;
+  let loading = false
 
   // enable the enter key
   const onKeyPress = e => {
@@ -29,33 +30,26 @@
       return errs;
     },
     onSubmit: async values => {
-      login();
+      loading = true;
+      let response = await api.post(fetch, "/api/login", values)
+      // this is usually because the credentials were incorrect
+      if (response.error) {
+        $errors.email = response.error;
+        loading = false;
+        return;
+      }
+      location.href = "/"; // we do this force refresh so that +layout.server.js is called
     }
   });
 
   onMount(() => {
     document.getElementById("email").focus();
   });
-
-  // check the credentials and log the user in
-  async function login() {
-    loading = true;
-    let body = {email: $form.email, password: $form.password};
-    let result = await fetch("/api/login", { method: "POST", body: JSON.stringify(body), headers: {'content-type': 'application/json'}});
-    const data = await result.json();
-    // this is usually because the credentials were incorrect
-    if (data.error) {
-      $errors.email = data.error;
-      loading = false;
-      return;
-    }
-    location.href = "/"; // we do this force refresh so that +layout.server.js is called
-  }
 </script>
 
 
 <div class="login">
-  <form on:submit={handleSubmit}>
+  <form onsubmit={handleSubmit}>
 
     <FormItem label="Email" errorMessage={$errors.email}>
       <TextInput name="email" bind:value={$form.email} />

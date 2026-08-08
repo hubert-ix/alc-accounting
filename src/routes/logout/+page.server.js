@@ -1,11 +1,8 @@
-import * as cookie from "cookie";
+import { redirect } from '@sveltejs/kit';
 
-export async function load({ cookies }) {
-  console.log("Logging out on the server");
-  const str =  cookie.serialize("user", "", {
-    path:"/",
-    expires: new Date(0)
-  })
-  cookies.set(str);
-  return {};
-}
+export const actions = {
+  default: async ({ locals: { supabase } }) => {
+    await supabase.auth.signOut();
+    throw redirect(303, '/login');
+  }
+};
