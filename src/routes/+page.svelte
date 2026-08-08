@@ -83,7 +83,7 @@
     <OperationForm categories={data.categories} {saving} saved={createOperation} cancelled={() => showInputForm = !showInputForm} />
   {/if}
   
-  <div class="wrap">
+  <div class="table-wrap">
     <table class:masked={filtering}>
       <thead>
         <tr>
@@ -149,18 +149,6 @@
 
 
 <style>
-  .wrap {
-    position: relative;
-    background-color: #ffffffb3;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    border: solid 2px #fff3b0;
-  }
-
-  table.masked {
-    opacity: 0.3;
-  }
-
   td.price, th.price {
     text-align: right;
   }

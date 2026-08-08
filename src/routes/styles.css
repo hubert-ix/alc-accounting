@@ -124,10 +124,22 @@ a:hover, button:hover {
 
 /* tables */
 
+.table-wrap {
+	position: relative;
+	background-color: #ffffffb3;
+	border-radius: 0.5rem;
+	overflow: hidden;
+	border: solid 2px #fff3b0;
+}
+
 table {
   border-collapse: collapse;
   width: 100%;
 	transition: opacity 200ms ease;
+}
+
+table.masked {
+	opacity: 0.3;
 }
 
 th {
