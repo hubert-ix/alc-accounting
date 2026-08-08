@@ -2,13 +2,52 @@
   import { flip } from "svelte/animate";
   import { invalidate } from "$app/navigation";
   import * as api from '$lib/api';
+    import TextInput from "$lib/UI/TextInput.svelte";
+    import { tick } from "svelte";
 
   let { data } = $props();
+  let editingId = $state(null);
+  let editingName = $state("");
 
   async function togglePublish(category) {
     let status = (category.status == "published")?"unpublished":"published";
     await api.patch(fetch, "/api/categories/" + category.id, {status});
     await invalidate('main');
+  }
+
+  async function startEdit(category) {
+    editingId = category.id;
+    editingName = category.name;
+    await tick();
+    document.getElementById("category-name").focus();
+  }
+
+  function cancelEdit() {
+    editingId = null;
+    editingName = "";
+  }
+
+  async function saveEdit(category) {
+    if (editingId !== category.id) return; // already closed (e.g. via Escape)
+    const name = editingName.trim();
+    if (!name || name === category.name) {
+      cancelEdit();
+      return;
+    }
+    await api.patch(fetch, "/api/categories/" + category.id, { name });
+    await invalidate('main');
+    cancelEdit();
+  }
+
+  function handleKeydown(e, category) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      saveEdit(category);
+    }
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      cancelEdit();
+    }
   }
 </script>
 
@@ -25,7 +64,15 @@
     <tbody>
       {#each data.categories as category (category.id)}
         <tr class="row" animate:flip={{duration: 400}}>
-          <td>{category.name}</td>
+          <td>
+            {#if editingId === category.id}
+              <div class="edit-wrap" onkeydown={(e) => handleKeydown(e, category)} onfocusout={() => saveEdit(category)}>
+                <TextInput name="category-name" bind:value={editingName} />
+              </div>
+            {:else}
+              {category.name}
+            {/if}
+          </td>
           <td>
             <div class="badge" class:unpublished={category.status == 'unpublished'}>
               {category.status}
@@ -33,7 +80,7 @@
           </td>
           <td class="small">
             <div class="row-actions">
-              <button aria-label="Edit">
+              <button aria-label="Edit" onclick={() => startEdit(category)}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil h-4 w-4" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"></path><path d="m15 5 4 4"></path></svg>
               </button>
               <button aria-label="Unpublish" onclick={() => togglePublish(category)}>
