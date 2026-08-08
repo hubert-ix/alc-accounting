@@ -6,7 +6,7 @@
   import TextInput from "$lib/UI/TextInput.svelte";
   import * as api from '$lib/api';
 
-  let loading = false
+  let loading = $state(false);
 
   // enable the enter key
   const onKeyPress = e => {
@@ -14,7 +14,7 @@
   };
 
   // set up the form
-  const { form, errors, state, handleChange, handleSubmit } = createForm({
+  const { form, errors, handleChange, handleSubmit } = createForm({
     initialValues: {
       email: "",
       password: "",
@@ -70,7 +70,9 @@
 <style>
   .login {
     background: var(--color-light);
-    border: solid 2px var(--color-primary);
+    border: solid 2px #f4a5a0;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
     padding: 2rem;
   }
   

@@ -1,4 +1,5 @@
 <script>
+  import Header from "$lib/Header.svelte";
   import './styles.css';
 
   let { data, children } = $props();
@@ -10,6 +11,8 @@
 </svelte:head>
 
 <main class="container">
+
+  <Header user={data.user} />
 
   <div class="content">
     {@render children?.()}

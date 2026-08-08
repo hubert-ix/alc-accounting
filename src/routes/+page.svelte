@@ -8,7 +8,6 @@
   import LoadingSpinner from "$lib/UI/LoadingSpinner.svelte";
   import OperationForm from "$lib/OperationForm.svelte";
   import Filters from "$lib/Filters.svelte";
-  import Header from "$lib/Header.svelte";
   import * as api from '$lib/api';
 
   let { data } = $props();
@@ -77,8 +76,6 @@
 
 
 <div in:fade>
-
-  <Header user={data.user} />
 
   <Filters categories={data.categories} filter={filterList} year={data.year} month={data.month} categoryId={data.categoryId} toggleInputForm={() => showInputForm = !showInputForm} />
   

@@ -38,11 +38,11 @@ export async function handle({ event, resolve }) {
   const isPublicPath = publicPaths.includes(event.url.pathname);
 
   if (!user && !isPublicPath) {
-    throw redirect(303, '/login');
+    redirect(302, '/login');
   }
 
   if (user && event.url.pathname === '/login') {
-    throw redirect(303, '/');
+    redirect(303, '/');
   }
 
   return resolve(event, {

@@ -4,7 +4,7 @@
   import localeData from 'dayjs/plugin/localeData.js';
   import SelectInput from "$lib/UI/SelectInput.svelte";
   import Button from "$lib/UI/Button.svelte";
-    import Stats from './Stats.svelte';
+  import Stats from './Stats.svelte';
 
   dayjs.extend(localeData);
 
@@ -62,7 +62,7 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-column h-5 w-5" aria-hidden="true" data-tsd-source="/src/routes/index.tsx:139:17"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="M18 17V9"></path><path d="M13 17V5"></path><path d="M8 17v-3"></path></svg>
     </button>
 
-    <button aria-label="Reset" class="stats" onclick={() => goto("/")}>
+    <button aria-label="Reset" class="stats" onclick={() => location.href="/"}>
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw h-4 w-4" aria-hidden="true" data-tsd-source="/src/routes/index.tsx:91:15"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
     </button>
 
