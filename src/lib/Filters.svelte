@@ -94,7 +94,7 @@
   .filters {
     display: flex;
     gap: 1rem;
-    flex-wrap: wrap;
+    flex: 1;
   }
 
   .buttons {
@@ -131,5 +131,22 @@
   }
 
   @media only screen and (max-width: 767px) {
+    .wrap {
+      padding: 1rem;
+    }
+
+    .filter-row {
+      align-items: start;
+    }
+
+    .filters {
+      flex-wrap: wrap;
+    }
+  }
+
+  @media only screen and (max-width: 450px) {
+    .filter-row {
+      flex-direction: column;
+    }
   }
 </style>

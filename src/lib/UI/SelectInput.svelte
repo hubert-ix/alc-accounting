@@ -16,7 +16,8 @@
 <style>
   .wrap {
     position: relative;
-    /*width: 100%;*/
+    width: 100%;
+    max-width: 300px;
   }
 
   select {
@@ -50,6 +51,12 @@
     top: 50%;
     right: .75rem;
     transform: translateY(-50%);
+  }
+
+  @media only screen and (max-width: 767px) {
+    .wrap {
+      width: auto;
+    }
   }
 
   @media only screen and (max-width: 450px) {
