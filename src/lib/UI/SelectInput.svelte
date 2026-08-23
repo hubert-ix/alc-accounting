@@ -51,4 +51,10 @@
     right: .75rem;
     transform: translateY(-50%);
   }
+
+  @media only screen and (max-width: 450px) {
+    .wrap {
+      width: 100%;
+    }
+  }
 </style>

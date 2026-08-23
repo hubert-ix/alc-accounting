@@ -105,11 +105,23 @@
     }
 
     button {
-      padding: 0.8rem;
+      padding: 0.6rem;
+      height: 2.5rem;
     }
 
     button span {
       display: none;
+    }
+  }
+
+  @media only screen and (max-width: 450px) {
+    .wrap {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    h1 {
+      font-size: 2rem;
     }
   }
 </style>
