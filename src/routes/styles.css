@@ -128,7 +128,7 @@ a:hover, button:hover {
 	position: relative;
 	background-color: #ffffffb3;
 	border-radius: 0.5rem;
-	overflow: hidden;
+	overflow-x: auto;
 	border: solid 2px #fff3b0;
 }
 
