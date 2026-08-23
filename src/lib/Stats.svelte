@@ -56,8 +56,10 @@
           <div class="bar-fill" style="width: {row.percent}%"></div>
           <div class="label">{row.name}</div>
         </div>
-        <div class="amount">${row.amount.toFixed(2)}</div>
-        <div class="hst">HST ${row.hst.toFixed(2)}</div>
+        <div class="values">
+          <div class="amount">${row.amount.toFixed(2)}</div>
+          <div class="hst">HST ${row.hst.toFixed(2)}</div>
+        </div>
       </div>
     {/each}
   {/if}
@@ -82,6 +84,7 @@
     position: relative;
     flex: 1;
     height: 2.5rem;
+    width: 100%;
     background: #fff;
     border: solid 2px #f4a5a0;
     border-radius: 0.5rem;
@@ -109,14 +112,19 @@
     white-space: nowrap;
   }
 
+  .values {
+    display: flex;
+    justify-content: end;
+    gap: 1rem;
+    width: 200px;
+  }
+
   .amount {
-    width: 80px;
     text-align: right;
     font-weight: bold;
   }
 
   .hst {
-    width: 100px;
     text-align: right;
     color: #999;
     font-size: 0.85rem;
@@ -126,5 +134,17 @@
     padding: 1rem;
     color: #999;
     text-align: center;
+  }
+
+  @media only screen and (max-width: 450px) {
+    .row {
+      flex-direction: column;
+      align-items: start;
+      gap: 0.5rem;
+    }
+
+    .values {
+      width: auto;
+    }
   }
 </style>
