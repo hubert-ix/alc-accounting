@@ -50,17 +50,21 @@
 
   <div class="filter-row">
 
-    <SelectInput options={years} bind:value={selectedYear} changed={change} />
-    <SelectInput options={months} bind:value={selectedMonth} changed={change} />
-    <SelectInput options={categoryOptions} bind:value={selectedCategory} changed={change} />
+    <div class="filters">
+      <SelectInput options={years} bind:value={selectedYear} changed={change} />
+      <SelectInput options={months} bind:value={selectedMonth} changed={change} />
+      <SelectInput options={categoryOptions} bind:value={selectedCategory} changed={change} />
+    </div>
 
-    <button aria-label="Add expense" onclick={toggleInputForm}>
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus h-5 w-5" aria-hidden="true" data-tsd-source="/src/routes/index.tsx:96:15"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
-    </button>
+    <div class="buttons">
+      <button aria-label="Add expense" onclick={toggleInputForm}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus h-5 w-5" aria-hidden="true" data-tsd-source="/src/routes/index.tsx:96:15"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+      </button>
 
-    <button aria-label="Stats" class="stats" onclick={() => showStats = !showStats}>
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-column h-5 w-5" aria-hidden="true" data-tsd-source="/src/routes/index.tsx:139:17"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="M18 17V9"></path><path d="M13 17V5"></path><path d="M8 17v-3"></path></svg>
-    </button>
+      <button aria-label="Stats" class="stats" onclick={() => showStats = !showStats}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-column h-5 w-5" aria-hidden="true" data-tsd-source="/src/routes/index.tsx:139:17"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="M18 17V9"></path><path d="M13 17V5"></path><path d="M8 17v-3"></path></svg>
+      </button>
+    </div>
 
   </div>
   
@@ -82,7 +86,20 @@
   .filter-row {
     display: flex;
     align-items: center;
-    grid-column-gap: 1rem;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .filters {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 1rem;
   }
 
   button {
@@ -91,6 +108,8 @@
     color: #fff;
     min-width: 2.75rem;
     width: 2.75rem;
+    max-width: 2.75rem;
+    min-width: 2.75rem;
     height: 2.75rem;
     justify-content: center;
     align-items: center;
@@ -109,5 +128,8 @@
 
   button.stats svg {
     width: 20px;
+  }
+
+  @media only screen and (max-width: 767px) {
   }
 </style>
