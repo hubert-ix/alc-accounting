@@ -26,8 +26,8 @@
   const quickLinks = {
     internet: { company: "Bell", description: "Internet", amount: 117, hst: 15.21, category_id: 19 },
     cellphone: { company: "Bell", description: "Cell phone", amount: 45, hst: 5.85, category_id: 17 },
-    hydro:{ company: "Toronto Hydro", description: "Electricity", amount: "", hst: "", category_id: 0 },
-    gas: { company: "Enbridge", description: "Gas", amount: "", hst: "", category_id: 0 },
+    hydro:{ company: "Toronto Hydro", description: "Electricity", amount: "", hst: "", category_id: 26 },
+    gas: { company: "Enbridge", description: "Gas", amount: "", hst: "", category_id: 22 },
   };
 
   // set up the form
