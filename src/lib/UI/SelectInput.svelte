@@ -16,7 +16,7 @@
 <style>
   .wrap {
     position: relative;
-    width: 100%;
+    /*width: 100%;*/
   }
 
   select {
