@@ -156,6 +156,7 @@
     margin-bottom: 1rem;
     display: flex;
     justify-content: space-between;
+    gap: 1rem;
   }
 
   form {
@@ -175,5 +176,28 @@
     margin-left: 100px;
     display: flex;
     grid-column-gap: 1rem;
+  }
+
+  @media only screen and (max-width: 767px) {
+    .input-form {
+      flex-direction: column-reverse;
+      gap: 1rem;
+    }
+
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      row-gap: 0.5rem;
+      column-gap: 1rem;
+      width: auto;
+    }
+
+    h3 {
+      margin: 0;
+    }
+
+    .quick-links div {
+      display: inline-block;
+    }
   }
 </style>
