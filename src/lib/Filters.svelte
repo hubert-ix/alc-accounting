@@ -10,6 +10,7 @@
 
   let { categories, toggleInputForm, filter, year, month, categoryId } = $props();
   let currentYear = dayjs().year();
+  let oldestYear = currentYear - 9; // matches the 10-year range built below
   let selectedYear = $state(year === 'all' ? 'all' : parseInt(year));
   let selectedMonth = $state(month === 'all' ? 'all' : parseInt(month));
   let selectedCategory = $state(categoryId === 'all' ? 'all' : parseInt(categoryId));
@@ -43,8 +44,41 @@
   function change() {
     filter(selectedYear, selectedMonth, selectedCategory);
   }
+
+  function shiftMonth(delta) {
+    // only meaningful when a specific year and month are selected
+    if (selectedYear === 'all' || selectedMonth === 'all') return;
+    let y = selectedYear;
+    let m = selectedMonth + delta;
+    if (m < 1) {
+      m = 12;
+      y -= 1;
+    } else if (m > 12) {
+      m = 1;
+      y += 1;
+    }
+    if (y < oldestYear || y > currentYear) return; // out of range, ignore
+    selectedYear = y;
+    selectedMonth = m;
+    change();
+  }
+
+  function handleKeydown(e) {
+    const isTyping = ['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName);
+    if (isTyping) return;
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      shiftMonth(-1);
+    }
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      shiftMonth(1);
+    }
+  }
 </script>
 
+
+<svelte:window onkeydown={handleKeydown} />
 
 <div class="wrap">
 
